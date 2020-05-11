@@ -1,0 +1,13 @@
+#calculos{
+    display: none;
+    color: blue;
+    font-weight: bold;
+}
+
+.hidden{
+    display: none;
+}
+
+.show{
+    display: content;
+}
