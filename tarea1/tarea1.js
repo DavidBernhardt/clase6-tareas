@@ -64,9 +64,13 @@ function agregarFamiliares (n){
 
 function obtenerEdades(){
     let edades = [];
-    const $inputEdades = document.querySelectorAll(".familiar");
+    const $inputEdades = document.querySelectorAll(".familiar input");
+    
     for (let i=0; i<$inputEdades.length; i++){
-        edades.push(Number($inputEdades[i].value));
+        let edad = Number($inputEdades[i].value);
+        if (validarEdad (edad)){
+            edades.push(edad);
+        }
     }
     return edades;
 }
@@ -87,7 +91,7 @@ function mayorEdad(edades){
             mayor = edades[i+1];
         }
     }
-    console.log(mayor);
+
     return mayor;
 }
 
@@ -98,7 +102,7 @@ function menorEdad(edades){
             menor = edades[i+1];
         }
     }
-    console.log(menor);
+
     return menor;
 }
 
@@ -108,6 +112,18 @@ function borrarIntegrantes(){
         $familiares[i].remove();
     }
     return;
+}
+
+function validarEdad(edad){
+    if (isNaN (edad) || edad === undefined || edad === null){
+        console.log ("Se ha presentado un valor incompatible en una de las edades");
+        return false;
+    }
+    if (edad <= 0){
+        console.log ("Solo se tienen en cuenta las edades positivas");
+        return false;
+    }
+    return true;
 }
 
 function mostrar(elemento){
