@@ -5,7 +5,8 @@ $botonAgregar.onclick = function (){
     totalIntegrantes++;
     agregarIntegrante(totalIntegrantes);
 
-    $botonRemover.className = "show";
+    mostrar ("#boton-remover");
+    ocultar("#calculos");
     return false;
 }
 
@@ -17,6 +18,7 @@ $botonRemover.onclick = function(){
     if (totalIntegrantes == 1){
         $botonRemover.className = "hidden";
     }
+    ocultar("#calculos");
     return false;
 }
 
@@ -36,17 +38,21 @@ $botonCalcular.onclick = function(){
     $menorSalario.innerText = `El menor salario anual es ${menor($salarioIntegrantes)}`;
     $promedio.innerText = `El promedio salarial es de ${promedio($salarioIntegrantes)}`;
 
-    document.querySelector("#calculos").display = "content";
+    mostrar("#calculos");
     return false;
 }
 
 function agregarIntegrante(n){
     $salarioIntegrantes = document.querySelector("#salario-integrantes");
     $div = document.createElement("div");
-    $input.className = "integrante";
+    $div.className = "integrante";
+    
     $label = document.createElement("label");
+    $label.for = "salario-integrante";
     $label.innerText = `Integrante ${n}: `;
+
     $input = document.createElement("input");
+    $input.id = "salario-integrante";
     $input.type = "number";
     $input.value = "0";
 
@@ -66,10 +72,13 @@ function removerIntegrante(){
 
 function obtenerSalarios(){
     let $salarioIntegrantes = [];
-    const $inputSalarioIntegrantes = document.querySelectorAll(".integrante");
+    const $inputSalarioIntegrantes = document.querySelectorAll(".integrante input");
+
     for (let i=0; i<$inputSalarioIntegrantes.length; i++){
-        if ($inputSalarioIntegrantes[i] != 0){
-            $salarioIntegrantes.push (Number($inputSalarioIntegrantes[i].value));
+        salario = Number($inputSalarioIntegrantes[i].value);
+
+        if (validarSalario (salario)){
+            $salarioIntegrantes.push (salario);
         }
     }
     return $salarioIntegrantes;
@@ -103,4 +112,22 @@ function promedio(salarios){
     return (promedio / salarios.length);
 }
 
+function validarSalario (salario){
+    if (isNaN (salario) || salario === undefined || salario === null){
+        console.log ("Se ha ingresado un valor incompatible en un campo de salario");
+        return false;
+    }
+    if (salario <= 0){
+        console.log ("Solo se tienen en cuenta los salarios positivos")
+        return false;
+    }
+    return true;
+}
 
+function mostrar(elemento){
+    document.querySelector(elemento).className = "show";
+}
+
+function ocultar(elemento){
+    document.querySelector(elemento).className = "hidden";
+}
