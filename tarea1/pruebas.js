@@ -2,6 +2,9 @@ function probarValidarEdad(){
     console.assert (validarEdad(21) === true,
     "validarEdad() ha rechazado una edad positiva valida"
     );
+    console.assert (validarEdad(00001) === true,
+    "validarEdad() ha rechazado una edad valida iniciada en 0"
+    );
     console.assert (validarEdad(-15) === false,
     "validarEdad() no ha rechazado una edad negativa"
     );
