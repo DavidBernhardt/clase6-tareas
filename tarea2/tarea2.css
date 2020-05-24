@@ -1,13 +1,17 @@
-#calculos{
-    display: none;
-    color: blue;
-    font-weight: bold;
-}
-
 .hidden{
     display: none;
 }
 
 .show{
     display: content;
+}
+
+.mensajes-de-error{
+    color: red;
+    font-weight: bold;
+}
+
+#calculos{
+    color: blue;
+    font-weight: bold;
 }

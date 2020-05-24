@@ -21,8 +21,8 @@ Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como
     
     <form id="salario-integrantes">
         <div class=integrante>
-            <label>Integrante 1: </label>
-            <input type="number" value="0">
+            <label for = "salario-integrante">Integrante 1: </label>
+            <input type="number" value="0" id="salario-integrante">
         </div>
     </form>
 
@@ -30,10 +30,10 @@ Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como
     <button type="button" id="boton-remover" class = "hidden">Remover</button>
     <button type="button" id="boton-calcular">Calcular</button>
     
-    <div id="calculos" classname="show">
-        <p id="mayor-salario">El mayor salario anual es </p>
-        <p id="menor-salario">El menor salario anual es </p>
-        <p id="promedio">El promedio es </p>
+    <div id="calculos" class="hidden" >
+        <p id="mayor-salario"></p>
+        <p id="menor-salario"></p>
+        <p id="promedio"></p>
     </div>
 
     <script src='tarea2.js'></script>

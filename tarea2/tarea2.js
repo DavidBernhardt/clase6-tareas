@@ -26,7 +26,7 @@ const $botonCalcular = document.querySelector("#boton-calcular")
 $botonCalcular.onclick = function(){
     let $salarioIntegrantes = obtenerSalarios();
     if ($salarioIntegrantes.length == 0){
-        alert("Todos los salarios son nulos, ingrese valores positivos para continuar");
+        mostrarError ("Todos los salarios son nulos, ingrese valores positivos para continuar");
         return false;
     }
 
@@ -74,51 +74,52 @@ function obtenerSalarios(){
     let $salarioIntegrantes = [];
     const $inputSalarioIntegrantes = document.querySelectorAll(".integrante input");
 
-    for (let i=0; i<$inputSalarioIntegrantes.length; i++){
-        salario = Number($inputSalarioIntegrantes[i].value);
-
-        if (validarSalario (salario)){
-            $salarioIntegrantes.push (salario);
+    $inputSalarioIntegrantes.forEach (function(salario){
+        if (validarSalario (salario.value)){
+            $salarioIntegrantes.push (Number(salario.value));
         }
-    }
+    } );
+
     return $salarioIntegrantes;
 }
 
 function mayor(salarios){
     let mayor = salarios[0];
-    for (let i=1; i<salarios.length; i++){
-        if (salarios[i] > mayor){
-            mayor = salarios[i];
+
+    salarios.forEach (function(salario){
+        if (salario > mayor){
+            mayor = salario;
         }
-    }
+    } );
     return mayor;
 }
 
 function menor(salarios){
     let menor = salarios[0];
-    for (let i=1; i<salarios.length; i++){
-        if (salarios[i] < menor){
-            menor = salarios[i];
+
+    salario.forEach (function(salario){
+        if (salario < menor){
+            menor = salario;
         }
-    }
+    } );
     return menor;
 }
 
 function promedio(salarios){
-    let promedio = salarios[0];
-    for (let i=1; i<salarios.length; i++){
-        promedio += salarios[i];
-    }
+    let promedio = 0;
+
+    salario.forEach (salario => promedio += salario);
+
     return (promedio / salarios.length);
 }
 
 function validarSalario (salario){
     if (isNaN (salario) || salario === undefined || salario === null){
-        console.log ("Se ha ingresado un valor incompatible en un campo de salario");
+        mostrarError ("Se ha ingresado un valor incompatible en un campo de salario");
         return false;
     }
-    if (salario <= 0){
-        console.log ("Solo se tienen en cuenta los salarios positivos")
+    if (! /^0*[1-9][0-9]*$/.test(salario) ){
+        mostrarError ("Solo se tienen en cuenta los salarios que sean numeros enteros positivos");
         return false;
     }
     return true;

@@ -2,6 +2,9 @@ function probarValidarSalario (){
     console.assert (validarSalario(20000) === true,
     "validarSalario() ha rechazado un valor positivo valido"
     );
+    console.assert (validarSalario(00000100) === true,
+    "validarSalario() rechazo un salario valido iniciado con cero (=00000100)"
+    );
     console.assert (validarSalario(-20000) === false,
     "validarSalario() no ha rechazado un salario negativo"
     );
