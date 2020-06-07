@@ -24,9 +24,11 @@ $botonRemover.onclick = function(){
 
 const $botonCalcular = document.querySelector("#boton-calcular")
 $botonCalcular.onclick = function(){
+    removerErrores ();
+
     let $salarioIntegrantes = obtenerSalarios();
     if ($salarioIntegrantes.length == 0){
-        mostrarError ("Todos los salarios son nulos, ingrese valores positivos para continuar");
+        mostrarError ("No se ha ingresado ningun salario valido.");
         return false;
     }
 
@@ -43,16 +45,16 @@ $botonCalcular.onclick = function(){
 }
 
 function agregarIntegrante(n){
-    $salarioIntegrantes = document.querySelector("#salario-integrantes");
-    $div = document.createElement("div");
+    const $salarioIntegrantes = document.querySelector("#salario-integrantes");
+    const $div = document.createElement("div");
     $div.className = "integrante";
     
-    $label = document.createElement("label");
-    $label.for = "salario-integrante";
-    $label.innerText = `Integrante ${n}: `;
+    const $label = document.createElement("label");
+    $label.for = `salario-integrante-${n}`;
+    $label.innerText = `Integrante ${n}:`;
 
-    $input = document.createElement("input");
-    $input.id = "salario-integrante";
+    const $input = document.createElement("input");
+    $input.id = `salario-integrante-${n}`;
     $input.type = "number";
     $input.value = "0";
 
@@ -64,7 +66,7 @@ function agregarIntegrante(n){
 }   
 
 function removerIntegrante(){
-    $salarioIntegrantes = document.querySelectorAll(".integrante");
+    let $salarioIntegrantes = document.querySelectorAll(".integrante");
     $salarioIntegrantes[$salarioIntegrantes.length-1].remove();
 
     return false;
@@ -97,7 +99,7 @@ function mayor(salarios){
 function menor(salarios){
     let menor = salarios[0];
 
-    salario.forEach (function(salario){
+    salarios.forEach (function(salario){
         if (salario < menor){
             menor = salario;
         }
@@ -108,7 +110,7 @@ function menor(salarios){
 function promedio(salarios){
     let promedio = 0;
 
-    salario.forEach (salario => promedio += salario);
+    salarios.forEach (salario => promedio += salario);
 
     return (promedio / salarios.length);
 }
@@ -125,6 +127,28 @@ function validarSalario (salario){
     return true;
 }
 
+function mostrarError (error){
+    const $errores = document.querySelector ("#errores");
+
+    const parrafoError = document.createElement ('p');
+    parrafoError.innerText = error;
+
+    $errores.appendChild (parrafoError);
+    
+    mostrar ("#errores");
+}
+
+function removerErrores() {
+    const $errores = document.querySelector ('#errores');
+    $errores.innerHTML = '';
+}
+
+/* function removerErrores() {
+    const $errores = document.querySelector ('#errores');
+
+    $errores.forEach (error => $errores.removeChild (error));
+} No funciona de esta manera */
+ 
 function mostrar(elemento){
     document.querySelector(elemento).className = "show";
 }
@@ -132,3 +156,5 @@ function mostrar(elemento){
 function ocultar(elemento){
     document.querySelector(elemento).className = "hidden";
 }
+
+

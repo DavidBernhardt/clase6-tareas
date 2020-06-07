@@ -6,12 +6,16 @@
     display: content;
 }
 
-.mensajes-de-error{
-    color: red;
-    font-weight: bold;
+input[type="number"] {
+    width: 80px;
 }
 
 #calculos{
     color: blue;
+    font-weight: bold;
+}
+
+#errores{
+    color: red;
     font-weight: bold;
 }
