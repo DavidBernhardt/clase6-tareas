@@ -1,23 +1,23 @@
 function probarValidarSalario (){
-    console.assert (validarSalario(20000) === true,
+    console.assert (validarSalario(20000) === '',
     "validarSalario() ha rechazado un valor positivo valido"
     );
-    console.assert (validarSalario(00000100) === true,
+    console.assert (validarSalario(00000100) === '',
     "validarSalario() rechazo un salario valido iniciado con cero (=00000100)"
     );
-    console.assert (validarSalario(-20000) === false,
+    console.assert (validarSalario(-20000) === "Solo se tienen en cuenta los salarios que sean numeros enteros positivos",
     "validarSalario() no ha rechazado un salario negativo"
     );
-    console.assert (validarSalario(0) === false,
+    console.assert (validarSalario(0) === "Solo se tienen en cuenta los salarios que sean numeros enteros positivos",
     "validarSalario() no ha rechazado un salario nulo"
     );
-    console.assert (validarSalario(NaN) === false,
+    console.assert (validarSalario(NaN) === "Se ha ingresado un valor incompatible en un campo de salario",
     "validarSalario() no ha rechazado un valor NaN que deberia ser numerico"
     );
-    console.assert (validarSalario(null) === false,
+    console.assert (validarSalario(null) === "Se ha ingresado un valor incompatible en un campo de salario",
     "validarSalario() no ha rechazado un valor null que deberia ser numerico"
     );
-    console.assert (validarSalario(undefined) === false,
+    console.assert (validarSalario(undefined) === "Se ha ingresado un valor incompatible en un campo de salario",
     "validarSalario() no ha rechazado un valor undefined que deberia ser numerico"
     );
 }

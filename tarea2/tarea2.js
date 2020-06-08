@@ -26,26 +26,50 @@ const $botonCalcular = document.querySelector("#boton-calcular")
 $botonCalcular.onclick = function(){
     removerErrores ();
 
-    let $salarioIntegrantes = obtenerSalarios();
-    if ($salarioIntegrantes.length == 0){
+    let integrantes = {};
+    const $salarioIntegrantes = obtenerSalarios();
+
+    for (let i=0; i<totalIntegrantes; ++i){
+        integrantes[i] = {};
+        integrantes[i] = {
+            salario: $salarioIntegrantes[i],
+            "error-salario": validarSalario ($salarioIntegrantes[i])
+        }
+    }
+
+    let salariosValidos = [];
+    for (let i=0; i<totalIntegrantes; ++i){
+        let error = integrantes[i]["error-salario"];
+
+        if (error){
+            mostrarError (error);
+        }
+        else{
+            salariosValidos.push (integrantes[i].salario)
+        }
+    }
+    
+    if (salariosValidos.length === 0){
         mostrarError ("No se ha ingresado ningun salario valido.");
         return false;
     }
 
+    console.log(integrantes);
+    console.log (salariosValidos);
     const $mayorSalario = document.querySelector("#mayor-salario");
     const $menorSalario = document.querySelector("#menor-salario");
     const $promedio = document.querySelector("#promedio");
 
-    $mayorSalario.innerText = `El mayor salario anual es ${mayor($salarioIntegrantes)}`;
-    $menorSalario.innerText = `El menor salario anual es ${menor($salarioIntegrantes)}`;
-    $promedio.innerText = `El promedio salarial es de ${promedio($salarioIntegrantes)}`;
+    $mayorSalario.innerText = `El mayor salario anual es ${mayor(salariosValidos)}`;
+    $menorSalario.innerText = `El menor salario anual es ${menor(salariosValidos)}`;
+    $promedio.innerText = `El promedio salarial es de ${promedio(salariosValidos)}`;
 
     mostrar("#calculos");
     return false;
 }
 
 function agregarIntegrante(n){
-    const $salarioIntegrantes = document.querySelector("#salario-integrantes");
+    const $form = document.querySelector("#formulario");
     const $div = document.createElement("div");
     $div.className = "integrante";
     
@@ -61,7 +85,7 @@ function agregarIntegrante(n){
     $div.appendChild($label);
     $div.appendChild($input);
 
-    $salarioIntegrantes.appendChild($div);
+    $form.appendChild($div);
     return false;
 }   
 
@@ -77,9 +101,7 @@ function obtenerSalarios(){
     const $inputSalarioIntegrantes = document.querySelectorAll(".integrante input");
 
     $inputSalarioIntegrantes.forEach (function(salario){
-        if (validarSalario (salario.value)){
-            $salarioIntegrantes.push (Number(salario.value));
-        }
+        $salarioIntegrantes.push (Number(salario.value));
     } );
 
     return $salarioIntegrantes;
@@ -117,14 +139,12 @@ function promedio(salarios){
 
 function validarSalario (salario){
     if (isNaN (salario) || salario === undefined || salario === null){
-        mostrarError ("Se ha ingresado un valor incompatible en un campo de salario");
-        return false;
+        return "Se ha ingresado un valor incompatible en un campo de salario";
     }
     if (! /^0*[1-9][0-9]*$/.test(salario) ){
-        mostrarError ("Solo se tienen en cuenta los salarios que sean numeros enteros positivos");
-        return false;
+        return ("Solo se tienen en cuenta los salarios que sean numeros enteros positivos");
     }
-    return true;
+    return '';
 }
 
 function mostrarError (error){
@@ -156,5 +176,3 @@ function mostrar(elemento){
 function ocultar(elemento){
     document.querySelector(elemento).className = "hidden";
 }
-
-
