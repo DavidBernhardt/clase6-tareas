@@ -26,19 +26,16 @@ const $botonCalcular = document.querySelector("#boton-calcular")
 $botonCalcular.onclick = function(){
     removerErrores ();
 
-    let integrantes = {};
+    const integrantes = {};
     const $salarioIntegrantes = obtenerSalarios();
+    const salariosValidos = [];
 
-    for (let i=0; i<totalIntegrantes; ++i){
-        integrantes[i] = {};
+    for (let i=0; i<totalIntegrantes; i++){
         integrantes[i] = {
             salario: $salarioIntegrantes[i],
             "error-salario": validarSalario ($salarioIntegrantes[i])
         }
-    }
 
-    let salariosValidos = [];
-    for (let i=0; i<totalIntegrantes; ++i){
         let error = integrantes[i]["error-salario"];
 
         if (error){
@@ -48,7 +45,7 @@ $botonCalcular.onclick = function(){
             salariosValidos.push (integrantes[i].salario)
         }
     }
-    
+
     if (salariosValidos.length === 0){
         mostrarError ("No se ha ingresado ningun salario valido.");
         return false;
@@ -97,14 +94,14 @@ function removerIntegrante(){
 }
 
 function obtenerSalarios(){
-    let $salarioIntegrantes = [];
-    const $inputSalarioIntegrantes = document.querySelectorAll(".integrante input");
+    let arSalarioIntegrantes = [];
+    const $listaSalarioIntegrantes = document.querySelectorAll(".integrante input");
 
-    $inputSalarioIntegrantes.forEach (function(salario){
-        $salarioIntegrantes.push (Number(salario.value));
+    $listaSalarioIntegrantes.forEach (function(salario){
+        arSalarioIntegrantes.push (Number(salario.value));
     } );
 
-    return $salarioIntegrantes;
+    return arSalarioIntegrantes;
 }
 
 function mayor(salarios){
@@ -138,9 +135,9 @@ function promedio(salarios){
 }
 
 function validarSalario (salario){
-    if (isNaN (salario) || salario === undefined || salario === null){
-        return "Se ha ingresado un valor incompatible en un campo de salario";
-    }
+    // if (isNaN (salario) || salario === undefined || salario === null){
+    //     return "Se ha ingresado un valor incompatible en un campo de salario";
+    // }
     if (! /^0*[1-9][0-9]*$/.test(salario) ){
         return ("Solo se tienen en cuenta los salarios que sean numeros enteros positivos");
     }

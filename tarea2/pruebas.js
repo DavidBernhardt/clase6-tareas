@@ -11,13 +11,13 @@ function probarValidarSalario (){
     console.assert (validarSalario(0) === "Solo se tienen en cuenta los salarios que sean numeros enteros positivos",
     "validarSalario() no ha rechazado un salario nulo"
     );
-    console.assert (validarSalario(NaN) === "Se ha ingresado un valor incompatible en un campo de salario",
+    console.assert (validarSalario(NaN) === "Solo se tienen en cuenta los salarios que sean numeros enteros positivos",
     "validarSalario() no ha rechazado un valor NaN que deberia ser numerico"
     );
-    console.assert (validarSalario(null) === "Se ha ingresado un valor incompatible en un campo de salario",
+    console.assert (validarSalario(null) === "Solo se tienen en cuenta los salarios que sean numeros enteros positivos",
     "validarSalario() no ha rechazado un valor null que deberia ser numerico"
     );
-    console.assert (validarSalario(undefined) === "Se ha ingresado un valor incompatible en un campo de salario",
+    console.assert (validarSalario(undefined) === "Solo se tienen en cuenta los salarios que sean numeros enteros positivos",
     "validarSalario() no ha rechazado un valor undefined que deberia ser numerico"
     );
 }
@@ -26,14 +26,14 @@ probarValidarSalario();
 salariosPrueba = [50000, 25000, 100000, 75000];
 
 function probarMayor(){
-    console.assert (mayor (salariosPrueba) === 100000,
+    console.assert (mayor(salariosPrueba) === 100000,
         "mayor() no escogio el mayor salario correctamente"
     );
 }
 probarMayor();
 
 function probarMenor(){
-    console.assert (menor (salariosPrueba) === 25000,
+    console.assert (menor(salariosPrueba) === 25000,
         "menor() no escogio el menor salario correctamente"
     );
 }
