@@ -1,6 +1,24 @@
+input[type="number"] {
+    width: 40px;
+}
+
+.error{
+    border: solid red;
+}
+
+.valido{
+    border: solid green;
+}
+
 .hidden{
     display: none;
 }
 .show{
     display: content;
 }
+
+#textos-error{
+    color: red;
+    font-weight: bold;
+}
+
