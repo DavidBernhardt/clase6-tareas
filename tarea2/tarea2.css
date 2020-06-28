@@ -1,5 +1,5 @@
 input[type="number"] {
-    width: 80px;
+    width: 70px;
 }
 
 .hidden{
@@ -10,12 +10,20 @@ input[type="number"] {
     display: content;
 }
 
+.error{
+    border: solid red;
+}
+
+.valido{
+    border: solid green;
+}
+
 #calculos{
     color: blue;
     font-weight: bold;
 }
 
-#errores{
+#textos-error{
     color: red;
     font-weight: bold;
 }

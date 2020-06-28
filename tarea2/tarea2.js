@@ -24,42 +24,23 @@ $botonRemover.onclick = function(){
 
 const $botonCalcular = document.querySelector("#boton-calcular")
 $botonCalcular.onclick = function(){
-    removerErrores ();
+    removerErrores();
+    validarFormulario();
 
-    const integrantes = {};
-    const $salarioIntegrantes = obtenerSalarios();
-    const salariosValidos = [];
+    const salarios = obtenerSalarios();
 
-    for (let i=0; i<totalIntegrantes; i++){
-        integrantes[i] = {
-            salario: $salarioIntegrantes[i],
-            "error-salario": validarSalario ($salarioIntegrantes[i])
-        }
-
-        let error = integrantes[i]["error-salario"];
-
-        if (error){
-            mostrarError (error);
-        }
-        else{
-            salariosValidos.push (integrantes[i].salario)
-        }
-    }
-
-    if (salariosValidos.length === 0){
+    if (salarios.length === 0){
         mostrarError ("No se ha ingresado ningun salario valido.");
         return false;
     }
 
-    console.log(integrantes);
-    console.log (salariosValidos);
     const $mayorSalario = document.querySelector("#mayor-salario");
     const $menorSalario = document.querySelector("#menor-salario");
     const $promedio = document.querySelector("#promedio");
 
-    $mayorSalario.innerText = `El mayor salario anual es ${mayor(salariosValidos)}`;
-    $menorSalario.innerText = `El menor salario anual es ${menor(salariosValidos)}`;
-    $promedio.innerText = `El promedio salarial es de ${promedio(salariosValidos)}`;
+    $mayorSalario.innerText = `El mayor salario anual es ${mayor(salarios)}`;
+    $menorSalario.innerText = `El menor salario anual es ${menor(salarios)}`;
+    $promedio.innerText = `El promedio salarial es de ${promedio(salarios)}`;
 
     mostrar("#calculos");
     return false;
@@ -71,11 +52,11 @@ function agregarIntegrante(n){
     $div.className = "integrante";
     
     const $label = document.createElement("label");
-    $label.for = `salario-integrante-${n}`;
+    $label.for = `salario`;
     $label.innerText = `Integrante ${n}:`;
 
     const $input = document.createElement("input");
-    $input.id = `salario-integrante-${n}`;
+    $input.id = `salario`;
     $input.type = "number";
     $input.value = "0";
 
@@ -93,12 +74,27 @@ function removerIntegrante(){
     return false;
 }
 
+function validarFormulario(){
+
+    const $salarios = document.querySelectorAll(".integrante input");
+
+    let errorSalarios = [];
+    
+   $salarios.forEach (function(key){           
+    errorSalarios.push(validarSalario(key.value));
+   } );
+
+    manejarErrores($salarios, errorSalarios);
+}
+
 function obtenerSalarios(){
     let arSalarioIntegrantes = [];
     const $listaSalarioIntegrantes = document.querySelectorAll(".integrante input");
 
     $listaSalarioIntegrantes.forEach (function(salario){
-        arSalarioIntegrantes.push (Number(salario.value));
+        if (! validarSalario(salario.value)){
+            arSalarioIntegrantes.push (Number(salario.value));
+        }
     } );
 
     return arSalarioIntegrantes;
@@ -144,19 +140,36 @@ function validarSalario (salario){
     return '';
 }
 
-function mostrarError (error){
-    const $errores = document.querySelector ("#errores");
+function manejarErrores($salarios, errores){
+
+    for (let i=0; i<$salarios.length; i++){
+        if (errores[i]){
+            $salarios[i].classList.remove('valido');
+            $salarios[i].classList.add('error');
+            mostrarTextoError(errores[i])
+        }
+        else{
+            $salarios[i].classList.remove('error');
+            $salarios[i].classList.add('valido');
+        }
+    } 
+
+    return;
+}
+
+function mostrarTextoError (error){
+    const $errores = document.querySelector ("#textos-error");
 
     const parrafoError = document.createElement ('p');
     parrafoError.innerText = error;
 
     $errores.appendChild (parrafoError);
     
-    mostrar ("#errores");
+    mostrar ("#textos-error");
 }
 
 function removerErrores() {
-    const $errores = document.querySelector ('#errores');
+    const $errores = document.querySelector ('#textos-error');
     $errores.innerHTML = '';
 }
 
