@@ -19,10 +19,10 @@ Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como
     <h1>Clase 6 - Tarea 2</h1>
     <p>Ingrese los salarios anuales de cada integrante de la familia</p>
     
-    <form id="salario-integrantes">
+    <form id="formulario">
         <div class=integrante>
-            <label>Integrante 1: </label>
-            <input type="number" value="0">
+            <label for = "salario">Integrante 1: </label>
+            <input type="number" value="0" id="salario">
         </div>
     </form>
 
@@ -30,12 +30,16 @@ Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como
     <button type="button" id="boton-remover" class = "hidden">Remover</button>
     <button type="button" id="boton-calcular">Calcular</button>
     
-    <div id="calculos" classname="show">
-        <p id="mayor-salario">El mayor salario anual es </p>
-        <p id="menor-salario">El menor salario anual es </p>
-        <p id="promedio">El promedio es </p>
+    
+    <div id="calculos" class="hidden">
+        <p id="mayor-salario"></p>
+        <p id="menor-salario"></p>
+        <p id="promedio"></p>
     </div>
+        
+    <div id="textos-error" class="hidden"></div>
 
     <script src='tarea2.js'></script>
+    <script src='pruebas.js'></script>
 </body>
 </html>

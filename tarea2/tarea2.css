@@ -1,7 +1,5 @@
-#calculos{
-    display: none;
-    color: blue;
-    font-weight: bold;
+input[type="number"] {
+    width: 70px;
 }
 
 .hidden{
@@ -10,4 +8,22 @@
 
 .show{
     display: content;
+}
+
+.error{
+    border: solid red;
+}
+
+.valido{
+    border: solid green;
+}
+
+#calculos{
+    color: blue;
+    font-weight: bold;
+}
+
+#textos-error{
+    color: red;
+    font-weight: bold;
 }
