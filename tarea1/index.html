@@ -1,11 +1,3 @@
-<!--
-TAREA: Empezar preguntando cuánta gente hay en el grupo familiar.
-Crear tantos inputs+labels como gente haya para completar la edad de cada integrante.
-Al hacer click en "calcular", mostrar en un elemento pre-existente la mayor edad, la menor edad y el promedio del grupo familiar.
-
-Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuevamente, borrando los inputs ya creados (investigar cómo en MDN).
--->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,17 +8,25 @@ Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuev
     <link rel='stylesheet' type='text/css' media='screen' href='tarea1.css'>
 </head>
 <body>
-    <form>
+    <form id="formulario">
         <label for="numero-familiares">Ingrese el numero de personas en el grupo familiar:</label>
         <input type="number" id="numero-familiares"/>
         <button type="button" id="ingresar-numero-familiares">Ingresar</button>
         <button type="button" id="boton-calcular" class="hidden">Calcular</button>
         <button type="button" id="reset" class="hidden">Reiniciar</button>
+        
+    </form>
+
+    <div id="calculos" class="hidden">
         <p id=menor></p>
         <p id=mayor></p>
         <p id=promedio></p>
-    </form>
+    </div>
+
+    <div id="textos-error" class="hidden"></div>
     
     <script src='tarea1.js'></script>
+    <script src='pruebas.js'></script>
 </body>
 </html>
+
